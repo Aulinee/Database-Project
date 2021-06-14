@@ -1,6 +1,7 @@
 :root{
   --dark-red: #d12a27;
   --blur-white: #dbdbdb;
+  --placeholder-white: #b8b4b4;
 }
 html {
   scroll-behavior: smooth;
@@ -124,7 +125,7 @@ a{
 
 .sign-in a, .sign-up a{
   font-family: 'roboto', sans-serif;
-  color: var(--blur-white);
+  color: white;
 }
 
 
@@ -168,7 +169,7 @@ a{
 
 .sign-in-form form h2{
   text-align: center;
-  color: var(--blur-white);
+  color: var(--placeholder-white);
   font-size: 20px;
 }
 
@@ -177,7 +178,11 @@ a{
 }
 
 .sign-in-form a:hover{
-  color: #000000;
+  color: black;
+}
+
+.sign-in-form h2 a:hover{
+  color: tomato;
 }
 
 .username-div, .password-div{
@@ -188,10 +193,11 @@ a{
 }
 
 .username-div label, .password-div label{
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'roboto', sans-serif;
+  font-weight: lighter;
   font-size: 30px;
   font-weight: 100;
-  margin: 1% 0;
+  margin: 2% 0;
   color: var(--blur-white);
 }
 
@@ -207,10 +213,11 @@ a{
   box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
 }
 
-::-webkit-input-placeholder {color: white;} 
-:-moz-placeholder {color: white; }
-::-moz-placeholder {color: white; }
-:-ms-input-placeholder {color: white; }
+::-webkit-input-placeholder {
+  color: var(--placeholder-white);} 
+:-moz-placeholder {color: var(--placeholder-white); }
+::-moz-placeholder {color: var(--placeholder-white); }
+:-ms-input-placeholder {color: var(--placeholder-white); }
 
 .sign-in-user{
   width: 55%;

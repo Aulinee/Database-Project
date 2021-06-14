@@ -15,18 +15,18 @@
     </div>
     <div class="sign-in-form">
         <form class="" action="">
-            <h1 class="">Sign In</h1>
+            <h1 class="">Sign In For User</h1>
             <div class="username-div">
-                <label for="uname"><b>Username</b></label>
+                <label for="uname">Username</label>
                 <input type="text" placeholder="Enter Username" name="uname" required>
             </div>
             <br>
             <div class="password-div">
-                <label for="psw"><b>Password</b></label>
+                <label for="psw">Password</label>
                 <input type="password" placeholder="Enter Password" name="psw" required>
             </div>
             <br>
-            <h2>New to TMFLIX? <a href="#">Sign up now.</a></h2>
+            <h2>New to TMFLIX? <a href="sign-up-user.php">Sign up now.</a></h2>
             <button class="sign-in sign-in-user" type="submit"><a href="">Sign In</a></button>
         </form>
     </div>

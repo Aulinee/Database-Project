@@ -20,7 +20,7 @@
     <div class="main-page-div-2">
         <h1>See what's next</h1>
         <h3>WATCH ANYWHERE. CANCEL ANYTIME.</h3>
-        <button class="sign-up"><a href="#">WATCH FREE FOR 30 DAYS</a></button>
+        <button class="sign-up"><a href="sign-up-user.php">WATCH FREE FOR 30 DAYS</a></button>
     </div>
 </body>
 </html>

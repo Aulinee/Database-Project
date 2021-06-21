@@ -58,7 +58,6 @@
 
             <button class="button goback">Go Back</button>
             <button class="button print">Print Receipt</button>
-        </div>
     </body>
 </html>
 

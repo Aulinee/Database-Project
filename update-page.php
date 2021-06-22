@@ -27,28 +27,26 @@
 
         <h1 class="update">Update Plan</h1>
 
-        <div class="standard">
-            <div class="column" style="background-color:#333333;">
-                <h3>Standard Plan</h3>
-            </div>
-            <div class="column" style="background-color:#333333;">
-                <h5>One device & Good Quality (480p)</h5>
-            </div>
-            <div class="column" style="background-color:#333333;">
-                <h4>RM 17/month</h4>
-            </div>
+        <div class="standard-container">
+            <div class="col"><h3>Standard Plan</h3></div>
+            <div class="col"><p>One device & Good Quality (480p)</p></div>
+            <div class="col"><h2>RM 17/month</h2></div>
         </div>
-
-        <div class="premium">
-            <div class="column" style="background-color:#333333;">
-                <h3>Premium Plan</h3>
-            </div>
-            <div class="column" style="background-color:#333333;">
-                <h5>Multiple device & Full HD (1080p)</h5>
-            </div>
-            <div class="column" style="background-color:#333333;">
-                <h4>RM 39/month</h4>
-            </div>
+        <br>
+        <div class="premium-container">
+            <div class="col"><h3>Premium Plan</h3></div>
+            <div class="col"><p>Multiple devices & Full HD (1080p)</p></div>
+            <div class="col"><h2>RM 39/month</h2></div>
+        </div>
+        <br>
+        <h2>Payment Method: </h2>
+        <div class="select">
+            <select name="method" id="method">
+                <option selected disabled>Select method</option>
+                <option value="pdf">Credit Card</option>
+                <option value="txt">Online Banking</option>
+                <option value="epub">PayPal</option>
+            </select>
         </div>
     </body>
 </html>

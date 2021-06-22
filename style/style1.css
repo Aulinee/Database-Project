@@ -113,33 +113,75 @@ table {
   font-size: 17px;
 }
 
-* {
-  box-sizing: border-box;
+
+.standard-container{
+  width: 1000px;
+  height: 150px;
+  border: 1px solid white;
+  margin: auto;
+  background-color: #1d1d1d;
+  position: relative;
 }
 
-.column {
+.col{
+  width: 333.33px;
+  height: 150px;
+  background-color: #1d1d1d;
   float: left;
-  width: 30%;
-  padding: 100px;
-  height: 1000px; 
-  background-color: #333333;
+  text-align: center;
+  color: rgb(255, 255, 255);
+ 
 }
 
-.standard:after {
-  content: "";
-  display: table;
-  clear: both;
-  background-color: #333333;
+.premium-container{
+  width: 1000px;
+  height: 150px;
+  border: 1px solid white;
+  margin: auto;
+  background-color: #131212;
+  position: relative;
 }
 
-.standard:after {
-  content: "";
-  display: table;
-  clear: both;
-  background-color: #333333;
+select {
+  box-shadow:none;
+  border:0!important;
+  background: #1d1d1d;
+  background-image: none;
+  flex: 1;
+  padding: 0 .5em;
+  color:#fff;
+  cursor:pointer;
+  font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+  align-items: right;
 }
-
-
+select::-ms-expand {
+  display: none;
+}
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #5c6664;
+  overflow: hidden;
+  border-radius: .25em;
+}
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #2b2e2e;
+  cursor:pointer;
+  pointer-events:none;
+  transition:.25s all ease;
+}
+.select:hover::after {
+  color: white;
+}
 
 /* Account Detail Page*/
 span.a {
@@ -149,5 +191,10 @@ span.a {
   padding: 5px;
   color: #dddddd; 
 }
+
+
+
+
+
   
   

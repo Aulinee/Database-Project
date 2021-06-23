@@ -43,9 +43,9 @@
         <div class="select">
             <select name="method" id="method">
                 <option selected disabled>Select method</option>
-                <option value="pdf">Credit Card</option>
-                <option value="txt">Online Banking</option>
-                <option value="epub">PayPal</option>
+                <option value="card">Credit Card</option>
+                <option value="online">Online Banking</option>
+                <option value="paypal">PayPal</option>
             </select>
         </div>
     </body>

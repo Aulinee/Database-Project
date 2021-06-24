@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/style.css">
+    <link href="style/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css"/>
     <title>Admin Sign-In</title>
 </head>
 <body class="parallax container">
@@ -27,7 +27,7 @@
             </div>
             <br>
             <h2>New User to TMFLIX? <a href="sign-up-user.php">Sign up now.</a></h2>
-            <button class="sign-in sign-in-user" type="submit"><a href="#">Sign In</a></button>
+            <button class="sign-in sign-in-user" type="submit">Sign In</button>
         </form>
     </div>
     <div class="admin-sign-in-label">

@@ -245,6 +245,52 @@ th{
     font-size: 10px;
 }
 
+.edit{
+    width: 20px;
+    height: 20px;
+}
+
+.edit-btn{
+    width: 30px;
+    height: 30px;
+    background-color: rgb(219, 33, 33);
+    border: none;
+    border-radius: 5px;
+    margin-left: 15%;
+}
+
+.delete{
+    width: 20px;
+    height: 20px;
+}
+
+.delete-btn{
+    width: 30px;
+    height: 30px;
+    background-color: rgb(233, 151, 172);
+    border: none;
+    border-radius: 5px;
+    margin-left: 20%;
+}
+
+.girl{
+    width: 80px;
+    height: 100px;
+    padding-left: 15%;
+}
+
+.mirror{
+    width: 80px;
+    height: 100px;
+    padding-left: 15%;
+}
+
+.bad{
+    width: 80px;
+    height: 100px;
+    padding-left: 15%;
+}
+
 
 
 

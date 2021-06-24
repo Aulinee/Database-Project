@@ -46,7 +46,7 @@
             </tr>
 
             <tr>
-                <td> Girl From Nowhere</td>
+                <td> <img class="girl" src="girl from nowhere.jpg"></td>
                 <td> Girl From Nowhere</td>
                 <td> 2</td>
                 <td> 21</td>
@@ -55,11 +55,11 @@
                 <td> Komqrit<br>Jatupong Rungrueangdechaphat<br>Pairach Khumwan</td>
                 <td> </td>
                 <td> May 7, 2020</td>
-                <td> Edit/Delete</td>
+                <td> <button type="edit" class="edit-btn"><img class="edit" src="pen.png"></button><button type="delete" class="delete-btn"><img class="delete" src="delete.png"></button></td>
             </tr>
 
             <tr>
-                <td> Black Mirror</td>
+                <td> <img class="mirror" src="black mirror.jpg"></td>
                 <td> Black Mirror</td>
                 <td> 6</td>
                 <td> 30</td>
@@ -68,11 +68,11 @@
                 <td> Komqrit<br>Jatupong Rungrueangdechaphat<br>Pairach Khumwan</td>
                 <td> </td>
                 <td> May 7, 2020</td>
-                <td> Edit/Delete</td>
+                <td> <button type="edit" class="edit-btn"><img class="edit" src="pen.png"></button><button type="delete" class="delete-btn"><img class="delete" src="delete.png"></button></td>
             </tr>
 
             <tr>
-                <td> Breaking Bad</td>
+                <td> <img class="bad" src="breaking bad.jpg"></td>
                 <td> Breaking Bad</td>
                 <td> 12</td>
                 <td> 60</td>
@@ -81,7 +81,7 @@
                 <td> Komqrit<br>Jatupong Rungrueangdechaphat<br>Pairach Khumwan</td>
                 <td> </td>
                 <td> May 7, 2020</td>
-                <td> Edit/Delete</td>
+                <td> <button type="edit" class="edit-btn"><img class="edit" src="pen.png"></button><button type="delete" class="delete-btn"><img class="delete" src="delete.png"></button></td>
             </tr>
         </table>
     </div>
@@ -101,3 +101,4 @@
     </footer>
 </body>
 </html>
+

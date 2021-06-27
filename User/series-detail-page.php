@@ -1,11 +1,11 @@
 <?php
 include '../database/dbConnection.php'; 
-include 'TVSeriesClass.php';
+include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 
 $seriesObj = new Series($conn);
 $seriesid_token = htmlentities($_GET["id"]);
-//$seriesObj->addSeriesLog($seriesid_token, $userid);
+$seriesObj->addSeriesLog($seriesid_token, $userid);
 
 $_SESSION['series_id'] = $seriesid_token;
 $session_series_data = $seriesObj->readSeriesDesc($_SESSION['series_id']);

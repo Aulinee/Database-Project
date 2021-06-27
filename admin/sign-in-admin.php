@@ -1,16 +1,16 @@
 <?php 
 include '../database/dbConnection.php'; 
-include '../class/UserClass.php';
+include '../class/AdminClass.php';
 
 $error ="";
-$userObj = new User($conn);
+$adminObj = new Admin($conn);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // username and password sent from form 
     $myusername = $_POST['uname'];
     $mypassword = $_POST['psw']; 
 
-    $authentication = $userObj->loginAuthentication($myusername,$mypassword);
+    $authentication = $adminObj->loginAuthentication($myusername,$mypassword);
 
     if(!$authentication){
         $error = "Your Login Name or Password is invalid";
@@ -19,13 +19,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(!isset($_SESSION)) {
             session_start();
         }
-        $_SESSION['login_user'] = $myusername;
-        $_SESSION['login_pass'] = $mypassword;
+        $_SESSION['login_admin'] = $myusername;
+        $_SESSION['login_admin_pass'] = $mypassword;
+        $_SESSION['series_id'] = 0;
 
         // Login time is stored in a session variable 
         $_SESSION["login_time_stamp"] = time(); 
         
-        header('location:main-page.php');
+        header('location:main-admin-page.php');
     }
 
 }
@@ -37,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../style/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css"/>
-    <title>User Sign-In</title>
+    <title>Admin Sign-In</title>
 </head>
 <body class="parallax container">
     <div class="main-page-div-1">
@@ -47,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
     <div class="sign-in-form">
         <form name="login" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <h1 class="">Sign In For User</h1>
+            <h1 class="">Sign In For Admin</h1>
             <div class="error-div">
                 <p class="error-message"><?php echo $error; ?></p>
             </div>
@@ -61,12 +62,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" placeholder="Enter Password" name="psw" required>
             </div>
             <br>
-            <h2>New to TMFLIX? <a href="sign-up-user.php">Sign up now.</a></h2>
-            <button class="sign-in sign-in-user" name="login" type="submit">Sign In</button>
+            <h2>New User to TMFLIX? <a href="sign-up-user.php">Sign up now.</a></h2>
+            <button class="sign-in sign-in-user" type="submit">Sign In</button>
         </form>
     </div>
     <div class="admin-sign-in-label">
-        <a href="../admin/sign-in-admin.php">Admin sign in here.</a>
+        <a href="../User/sign-in-user.php">User sign in here.</a>
     </div>
 </body>
 </html>

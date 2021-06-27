@@ -44,6 +44,10 @@ a{
 .left{
     float:left;
 }
+
+.error{
+  color: red;
+}
    
 .parallax {
   /* The image used */
@@ -443,6 +447,7 @@ a{
 }
 
 .btn-register{
+  margin: auto;
   font-weight: 50;
   font-size: 15px;
   background-color: var(--dark-red);
@@ -458,9 +463,34 @@ a{
 }
 
 .btn-register:hover{
-  background-color: tomato;
   transform: scale(1.2);
   transition: ease-in 0.2s;
+}
+
+.btn-clear{
+  margin-right: 30%;
+  display: inline;
+  font-weight: 50;
+  font-size: 15px;
+  background-color: rgb(163, 216, 240);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 45px;
+  font-family: 'roboto', sans-serif;
+  color: rgb(0, 0, 0);
+}
+
+.btn-clear:hover{
+  color: white;
+}
+
+.btn-clear:hover{
+  transform: scale(1.2);
+  transition: ease-in 0.2s;
+}
+
+.sign-up-button{
+  display: flex;
 }
 
 .signin-label h2{
@@ -482,6 +512,9 @@ header {
   background: rgba(255,255,255,0.4);
   width: 100%;
   display: inline-flex;
+}
+
+.bottom{
   margin-bottom: 30px;
 }
 
@@ -1207,6 +1240,866 @@ tr.bottom-border{
 .red-title{
   color: var(--dark-red);
 }
+
+/*===================================Admin Main Page===================================*/
+.branding-admin{
+  margin: 0.3% 0 0.3% 1%;
+  width: 50%;
+}
+
+.admin-logo{
+  margin-top: 1%;
+  width: 150px;
+}
+
+.admin-title{
+  margin-left: 4%;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: var(--blur-white);
+  font-size: 37px;
+}
+
+.right-admin-navbar{
+  margin: 0.3% 1% 0.3% 0%;
+  width: 50%;
+}
+
+.right-admin-navbar nav{
+  float: right;
+}
+
+.inline{
+  display: inline;
+}
+
+.main-page-title{
+  text-transform: uppercase;
+  text-align: center;
+  margin: auto;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: black;
+  font-size: 35px;
+}
+
+.sub-title-main{
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  font-style: italic;
+}
+
+.flex-admin{
+  width: 100%;
+  margin: 0 auto 1% auto;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.seriesInput {
+  display: block;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+.seriesinput-icons i {
+  color: white;
+  position: absolute;
+}
+
+.seriesinput-icons {
+  width: 30%;
+}
+
+.seriesicon {
+  border: rgb(75, 70, 70) solid 1px;
+  height: fit-content;
+  background-color: gray;
+  padding: 10px;
+}
+
+.seriesinput-field {
+  color: white;
+  background-color: rgb(75, 70, 70);
+  border: rgb(75, 70, 70) solid 1px;
+  width: 60%;
+  padding: 10px;
+  text-align: center;
+}
+
+.create-series-btn{
+  width: 30%;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.addicon{
+  border: var(--dark-red) solid 1px;
+  height: fit-content;
+  background-color: lightcoral;
+  padding: 10px;
+}
+
+.create{
+  margin: 0;
+  font-weight: 50;
+  font-size: 15px;
+  background-color: var(--dark-red);
+  border: none;
+  padding: 10px 20px;
+  font-family: 'roboto', sans-serif;
+  color: white;
+}
+
+.create:hover{
+  opacity: 0.7;
+  transition: ease-in 0.2s;
+}
+
+.edit-btn:hover, .delete-btn:hover{
+  color: rgb(0, 0, 0);
+  transform: scale(1.2);
+  transition: ease-in 0.2s;
+}
+
+.col{
+  width: 30%;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+.tbl-scroll{
+  background-color: rgb(75, 70, 70);
+  margin: auto;
+  width: 90%;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.all-series-table{
+  border-spacing: 0;
+  width: 100%;
+  margin: auto;
+  text-align: left;
+  color: white;
+  font-size: 13px;
+  border: black solid 1px;
+}
+
+.font-size-20{
+  font-size: 20px;
+}
+
+.font-size-15{
+  font-size: 15px;
+}
+
+.all-series-table td{
+  /* border: var(--blur-white) solid 1px; */
+  border: black solid 1px;
+  padding: 10px;
+  background-color: #5b5959;
+  text-align: center;
+}
+
+.all-series-table th{
+  padding: 10px;
+  background-color: #d6d3d3;
+  color: #000;
+  text-align: center;
+}
+
+.edit-btn{
+  padding: 1px 2px;
+  margin: 5% auto;
+  font-size: 25px;
+  color: white;
+  width: 50%;
+  height: 20%;
+  background-color: rgb(219, 33, 33);
+  border: none;
+  border-radius: 10px;
+}
+
+.delete-btn{
+  margin: 5% auto;
+  font-size: 25px;
+  color: white;
+  height: 20%;
+  background-color: rgb(233, 151, 172);
+  border: none;
+  border-radius: 10px;
+}
+
+.padding-5{
+  padding: 0 0 5% 0;
+}
+
+.padding-left{
+  padding: 0 1%;
+}
+
+.border-radius-10{
+  border-radius: 20px;
+}
+
+.margin-5{
+  margin-left: -5%;
+}
+
+.seriesimg{
+  width: 80px;
+  height: 100px;
+  margin: auto;
+}
+
+/*===================================Edit Series Page===================================*/
+.edit-img{
+  width: 95%;
+  height: 90%;
+  float: right;
+  margin-bottom: 3%;
+}
+
+.new-img-input{
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.file-input{
+  text-align: center;
+}
+
+.file-input label {
+  padding: 12px 50px;
+  margin-left: 5%;
+  display: inline;
+  position: relative;
+  width: 80%;
+  height: 50px;
+  border-radius: 20px;
+  background: linear-gradient(40deg, var(--blur-white), var(--dark-red));
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s ease-out;
+}
+
+.file-name {
+  position: absolute;
+  bottom: -50px;
+  left: 10px;
+  font-size: 0.85rem;
+  color: white;
+}
+
+input:hover + label,
+input:focus + label {
+  transform: scale(1.02);
+}
+
+/* Adding an outline to the label on focus */
+input:focus + label {
+  outline: 1px solid #000;
+  outline: -webkit-focus-ring-color auto 2px;
+}
+
+/* tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  font-size: 15px;
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: -20%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* edit button */
+.edit-series-btn a{
+  font-size: 20px;
+  color: white;
+}
+
+.edit-series-btn a:hover{
+  color: black;
+}
+
+.edit-series-btn{
+  color: white;
+  font-weight: 50;
+  font-size: 20px;
+  background-color: var(--dark-red);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-family: 'roboto', sans-serif;
+}
+
+.edit-series-btn:hover{
+  color: black;
+  background-color: white;
+}
+
+/* hidden div form */
+.hidden-form{
+  background-color: black;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid black;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* hidden div form */
+.display-form{
+  background-color: black;
+  margin: -3% auto auto auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid black;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Modal (background) */
+.sub-hidden-form {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(255,255,255); /* Fallback color */
+  background: rgba(255,255,255,0.4);
+  padding-top: 60px;
+}
+
+/* The Modal (background) */
+.sub-display-form {
+  width: 100%; /* Full width */
+  padding-top: 60px;
+}
+
+/* Center the title and position the close button */
+.titlecontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+.contentcontainer {
+  margin: auto auto 5% auto;
+  width: 80%;
+  padding: 16px;
+  background-color: #555;
+}
+
+.editinfo-div{
+  margin: auto;
+  padding-bottom: 10px;
+  width: fit-content;
+}
+
+.editinfo-div-2{
+  width: 80%;
+}
+
+.editinfo-div-2 label{
+  float: left;
+}
+
+.editinfo-div label{
+  font-family: 'roboto', sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+  font-weight: 100;
+  color: var(--blur-white);
+}
+
+.editinfo-div input, .editinfo-div textarea, .editinfo-div select{
+  padding: 3% 2%;
+  width: 96%;
+  font-size: 20px;
+  background: rgba(255,255,255,0.4);
+  outline: none;
+  border: none;
+  color: white;
+  -webkit-box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+}
+
+.editinfo-div input:focus {
+  color: #000;
+  background-color: white;
+}
+
+/* The Close Button (x) */
+.close-btn{
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color:white;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: var(--dark-red);
+  cursor: pointer;
+}
+
+.hidden-div-btn{
+  text-align: center;  
+}
+
+.submitbtn{
+  background-color:rgb(163, 216, 240);
+}
+
+.cancelbtn{
+  background-color: var(--dark-red);
+}
+
+.cancelbtn, .submitbtn {
+  font-weight: 50;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 40px;
+}
+
+.cancelbtn:hover, .submitbtn:hover{
+  opacity: 0.7;
+}
+
+.gray-bg{
+  background: rgba(255,255,255,0.4);
+}
+
+.font-white{
+  color: var(--blur-white);
+}
+
+.line-black{
+  background-color: black;
+  border: black solid 1px;
+}
+
+/* season and episode div */
+.margin-top-5{
+  margin-top: 5%;
+}
+.season-title{
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+
+}
+
+.flex-season-detail{
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+.season-detail{
+  padding: 1% 2%;
+  font-weight: 500;
+  font-size: 16px;
+  font-style: italic;
+  background-color: #818181;
+}
+
+.align-right{
+  text-align: right;
+}
+
+.align-left{
+  text-align: left;
+}
+
+.align-center{
+  text-align: center;
+}
+
+.width-90{
+  margin: auto;
+  width: 90%;
+}
+
+.season-bg-white{
+  padding: 2%;
+  margin: auto;
+  width: 90%;
+}
+
+.flex-season{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+/*===================================Create Series Page===================================*/
+.no-pointer{
+  pointer-events: none;
+}
+
+.main-flex{
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.flex{
+  padding: 10px;
+}
+
+.nav-btn a{
+  text-transform: uppercase;
+  color: black;
+}
+
+.nav-btn a:hover{
+  color: white;
+}
+
+.inline{
+  display: inline;
+}
+
+.nav-btn{
+  z-index: 1;
+  margin: 0 1%;
+  color: black;
+  font-size: 13px;
+  font-weight:700;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 15px;
+  font-family: 'roboto', sans-serif;
+}
+
+.nav-btn:hover{
+  color: white;
+  background-color: var(--dark-red);
+}
+
+.season-btn{
+  display: flex;
+  justify-content:center;
+  margin: auto;
+}
+
+.margin-lr-1{
+  margin: 0 1%;
+}
+
+
+.bg-black{
+  background-color: black;
+}
+
+.new-series{
+  margin: 2% 0;
+  padding: 1% 0;
+}
+
+.div-title{
+  text-align: center;
+  color: var(--blur-white);
+}
+
+.new-series-description form{
+  display: flex;
+  flex-direction: row;
+}
+
+.new-series-img-div{
+  width: 40%;
+  margin: auto;
+}
+
+.new-series-img{
+  border: var(--dark-red) solid 1px;
+  width: 40%;
+  height: 100%;
+  margin: auto 50%;
+}
+
+.btn-upload{
+  float: right;
+  border: none;
+  padding: 1% 3%;
+}
+
+.new-series-desc-div{
+  width: 60%;
+}
+
+.new-series-desc-div-2{
+  margin: 4%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.4);
+}
+
+.new-series-desc-detail-div{
+  width: 100%;
+  height: 33%;
+}
+
+.new-series-genre, .new-series-description, .new-series-cast, .new-series-director, .new-series-award{
+  background-color: #d5cdcd;
+  padding: 2% 0;
+  
+}
+.new-series-season{
+  padding: 0 0 3% 0;
+  margin: 3%;
+  background-color: #d5cdcd;
+}
+
+.no-margin{
+  margin: 0;
+}
+
+.white-font{
+  color: white;
+}
+
+.series-description form {
+  width: 80%
+}
+
+.btn-addseries-genre{
+  display: inline;
+  font-weight: 50;
+  font-size: 15px;
+  background-color: var(--dark-red);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 40px;
+  font-family: 'roboto', sans-serif;
+  color: white;
+}
+
+.btn-addseries-genre:hover{
+  color: rgb(0, 0, 0);
+}
+
+.btn-addseries-genre:hover{
+  transform: scale(1.2);
+  transition: ease-in 0.2s;
+}
+
+.myInput {
+  width: 75%;
+  display: block;
+  margin: auto auto 5% auto;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+}
+
+.input-icons i {
+  position: absolute;
+}
+
+.input-icons {
+  margin: auto auto 2% auto;
+  width: 80%;
+}
+
+.icon {
+  padding: 10px;
+  min-width: 40px;
+}
+
+.input-field {
+  width: 80%;
+  padding: 10px;
+  text-align: center;
+}
+
+.myTable {
+  width: 80%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  margin: auto;
+}
+
+.myTable th, .myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+.myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.myTable tr.header, .myTable tr:hover {
+  background-color: #d6d3d3;
+}
+
+/*====hidden div=====*/
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+.block{
+  margin: auto;
+  display: block;
+}
+
+.block select{
+  width: 200px;
+  font-size: 15px;
+  background-color: white;
+  outline: none;
+  border: solid black 1px;
+  color: black;
+}
+
+.block select option{
+  color: black;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+.none{
+  display: none;
+}
+
+
+
 
 /*===================================Testing===================================*/
 .red{

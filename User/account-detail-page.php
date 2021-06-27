@@ -1,6 +1,6 @@
 <?php
 include '../database/dbConnection.php'; 
-include 'TVSeriesClass.php';
+include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 ?>
 <!DOCTYPE html>
@@ -62,10 +62,6 @@ include 'sessionUser.php';
                             <tr>
                                 <td><h2 class="flexbox-2-1">Email</h2></td>
                                 <td><h2 class="flexbox-2-2"><?php echo $email; ?></h2></td>
-                            </tr>
-                            <tr>
-                                <td><h2 class="flexbox-2-1">Birthday Date</h2></td>
-                                <td><h2 class="flexbox-2-2"><?php echo $birthdate; ?></h2></td>
                             </tr>
                             <tr>
                                 <td><h2 class="flexbox-2-1">Gender</h2></td>

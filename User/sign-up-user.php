@@ -118,7 +118,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label for="termsandcondition" class="tnc-label1">I accept the terms and condition for signing up to this service, and hereby confirm I have read the privacy policy.</label>
             </div>
             <div class="signin-label">
-                <button class="btn-register" type="submit" value="Sign Up" onclick="return feedback()">Sign Up</button>
+                <button class="btn-register align-center" type="submit" value="Sign Up" onclick="return feedback()">Sign Up</button>
                 <h2>Have an account? <a href="sign-in-user.php">Sign in here.</a></h2>
             </div>
         </form>

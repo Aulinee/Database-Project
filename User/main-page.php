@@ -1,6 +1,6 @@
 <?php
 include '../database/dbConnection.php'; 
-include 'TVSeriesClass.php';
+include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 ?>
 <!DOCTYPE html>
@@ -105,22 +105,22 @@ include 'sessionUser.php';
                     <br>
                     <h2>Contact Us</h2>
                     <p>
-                        <img class="icon-contact" src="img/facebook-07.png" alt="tv-series">
-                        <img class="icon-contact" src="img/twitter2-06.png" alt="tv-series">
-                        <img class="icon-contact" src="img/instagram2-08.png" alt="tv-series">
+                        <img class="icon-contact" src="../img/facebook-07.png" alt="tv-series">
+                        <img class="icon-contact" src="../img/twitter2-06.png" alt="tv-series">
+                        <img class="icon-contact" src="../img/instagram2-08.png" alt="tv-series">
                     </p>
                 </div>
                 <div class="right-desc">
-                    <img class="about-us-img" src="img/TMFLIX about us-05.png" alt="tv-series">
+                    <img class="about-us-img" src="../img/TMFLIX about us-05.png" alt="tv-series">
                 </div>
             </div>
         </div>
     </div>
     <footer>
         <p>
-            <img class="icon-contact" src="img/facebook-07.png" alt="tv-series">
-            <img class="icon-contact" src="img/twitter2-06.png" alt="tv-series">
-            <img class="icon-contact" src="img/instagram2-08.png" alt="tv-series">
+            <img class="icon-contact" src="../img/facebook-07.png" alt="tv-series">
+            <img class="icon-contact" src="../img/twitter2-06.png" alt="tv-series">
+            <img class="icon-contact" src="../img/instagram2-08.png" alt="tv-series">
         </p>
         <h5>&copy; Copyright 2021 MeowCat Team</h5>
     </footer>

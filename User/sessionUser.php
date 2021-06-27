@@ -1,6 +1,6 @@
 <?php 
     include '../database/dbConnection.php'; 
-    include 'UserClass.php';
+    include '../class/UserClass.php';
 
     // Set sessions
     if(!isset($_SESSION)) {
@@ -29,10 +29,9 @@
     $username = $session_data[2];
     $fullname = $session_data[3];
     $email = $session_data[4];
-    $birthdate = $session_data[5];
-    $gender = $session_data[6];
-    $phonenum = $session_data[7];
-    $address= $session_data[8];
+    $gender = $session_data[5];
+    $phonenum = $session_data[6];
+    $address= $session_data[7];
 
     //Set subscription data
     $subscription_session_data = $userObj->readSubscription($subid);

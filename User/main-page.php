@@ -1,7 +1,9 @@
 <?php
-include '../database/dbConnection.php'; 
-include '../class/TVSeriesClass.php';
+date_default_timezone_set("Asia/Kuala_Lumpur");
 include 'sessionUser.php';
+
+$current_date = date('M, Y', time());
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@ include 'sessionUser.php';
             <nav>
                 <ul>
                     <li><a href="main-page.php#top-pick">Home</a></li>
-                    <li><a href="main-page.php#series-genre">Series</a></li>
+                    <li><a href="search-series-page.php">Search Series</a></li>
                     <li><a href="main-page.php#about-us">About Us</a></li>
                 </ul>
             </nav>
@@ -38,7 +40,7 @@ include 'sessionUser.php';
         </div>
     </header>
     <div class="content container-95" id="top-pick">
-        <div class="top-pick ">
+        <div class="top-pick " id="top-5-by-user">
             <h1 class="top-pick-title ">Top 5 Most Watch By You</h1>
             <div class="top-pick-display ">
                 <?php 
@@ -51,39 +53,17 @@ include 'sessionUser.php';
                 </div> -->
             </div>
         </div>
-        <div class="series-genre" id="series-genre">
-            <form name="genre" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <div class="filter-label ">
-                    <label class="filter-genre-title ">Series</label>
-                    <select class="filter-genre" id="gender" name="genre" required>
-                        <option value="All">All</option>
-                        <?php
-                            $seriesObj = new Series($conn);
-                            $seriesObj->displayFilterOptions(); 
-                        ?>
-                    </select>
-                    <input class="genre-submit" type="submit" value="Submit">
-                </div>
-            </form>
-            <div class="filter-series">
+        <div class="top-pick" id="top-5-by-month"> 
+            <h1 class="top-pick-title ">Top 5 In <?php echo $current_date;?></h1>
+            <div class="top-pick-display ">
                 <?php 
-                    if($_SERVER["REQUEST_METHOD"] == "POST"){
-                        if(isset($_POST['genre'])){
-                            $genreValue =  $_POST['genre'];
-                            $seriesObj = new Series($conn);
-                            $seriesObj->displayFilterSeries($genreValue);
-                        }
-                    }else{
-                        $seriesObj = new Series($conn);
-                        $seriesObj->displayFilterSeries("All");
-                    }
-                    header("Location: main-page#series-genre.php");
-                    
+                $seriesObj = new Series($conn);
+                $seriesObj->displayTopSeriesByMonth();
                 ?>
-                <!-- <div class="filter-poster-desc">
-                    <img class="filter-display " src="img/breaking_bad_poster.jpg" alt="tv-series">
-                    <p class="filter-series-title ">Breaking Bad</p>
-                </div>-->
+                <!-- <div class="poster-desc">
+                    <img class="poster-display " src="img/breaking_bad_poster.jpg" alt="tv-series">
+                    <p class="series-title ">Breaking Bad</p>
+                </div> -->
             </div>
         </div>
         <div class="about-us" id="about-us">

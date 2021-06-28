@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         <div class="right-admin-navbar">
             <nav>
                 <ul>
-                    <li><a href="main-admin-page.php"><i style="font-size:25px" class="fa">&#xf26c;</i>  TV Series</a></li>
-                    <li><a href="#"><i style="font-size:25px" class="fa">&#xf155;</i>  Subscription</a></li>
+                    <li><a class="current" href="main-admin-page.php"><i style="font-size:25px" class="fa">&#xf26c;</i>  TV Series</a></li>
+                    <li><a href="subscription-page.php"><i style="font-size:25px" class="fa">&#xf155;</i>  Subscription</a></li>
                     <li><a href="#"><i style="font-size:25px" class="fa fa-user" aria-hidden="true"></i>  <?php echo $usernameAdmin?></a></li>
                     <li><a href="../User/logout.php"><i style="font-size:25px" class="fa">&#xf08b;</i>  Logout</a></li>
                 </ul>

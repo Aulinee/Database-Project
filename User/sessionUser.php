@@ -1,6 +1,10 @@
 <?php 
     include '../database/dbConnection.php'; 
     include '../class/UserClass.php';
+    include '../class/TVSeriesClass.php';
+
+    $seriesObj = new Series($conn);
+    $userObj = new User($conn);
 
     // Set sessions
     if(!isset($_SESSION)) {
@@ -21,7 +25,6 @@
     $password = $_SESSION['login_pass'];
 
     //Set session data
-    $userObj = new User($conn);
     $session_data = $userObj->setSessionData($username, $password);
 
     $userid = $session_data[0];

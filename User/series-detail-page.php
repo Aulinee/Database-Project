@@ -1,6 +1,4 @@
 <?php
-include '../database/dbConnection.php'; 
-include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 
 $seriesObj = new Series($conn);
@@ -31,7 +29,7 @@ $session_series_data = $seriesObj->readSeriesDesc($_SESSION['series_id']);
             <nav>
                 <ul>
                     <li><a href="main-page.php#top-pick">Home</a></li>
-                    <li><a href="main-page.php#series-genre">Series</a></li>
+                    <li><a href="search-series-page.php">Search Series</a></li>
                     <li><a href="main-page.php#about-us">About Us</a></li>
                 </ul>
             </nav>
@@ -45,6 +43,11 @@ $session_series_data = $seriesObj->readSeriesDesc($_SESSION['series_id']);
             </nav>
         </div>
     </header>
+    <div class="main-flex">
+        <div class="flex align-left" id="flexbox">
+            <button class="nav-btn inline"><a href= "main-page.php"><i class="fa fa-arrow-left"></i> Back To Main Page</a></button>
+        </div>
+    </div>
     <div class="content container-95">
         <div class="series-summary">
             <div class="series-img">

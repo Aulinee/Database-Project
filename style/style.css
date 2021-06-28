@@ -549,6 +549,10 @@ nav ul li a:hover{
   border-bottom: var(--dark-red) 3px solid;
 }
 
+.current{
+  border-bottom: var(--dark-red) 3px solid;
+}
+
 .content {
   width: 100%;
 }
@@ -566,7 +570,7 @@ nav ul li a:hover{
 /*top pick css*/
 .top-pick{
   margin-top: 2%;
-  margin-bottom: 20%;
+  margin-bottom: 5%;
 }
 
 .top-pick-title, .filter-genre-title, .about-us-title{
@@ -597,7 +601,7 @@ nav ul li a:hover{
 
 /*genre filter css*/
 .series-genre{
-  margin-bottom: 20%;
+  margin-bottom: 5%;
 }
 
 .filter-series{
@@ -631,6 +635,7 @@ nav ul li a:hover{
 }
 
 .filter-label{
+  padding-top: 3%;
   display: flex;
   flex-direction: row;
 }
@@ -1017,7 +1022,11 @@ tr.bottom-border{
 .payment-history-tb tr{
   text-align: center;
   margin: auto;
-  pointer-events: none;
+}
+
+table.payment-history-tb tbody tr:hover td{
+  background-color: gray;
+  color: #000;
 }
 
 .payment-history-tb tr td{
@@ -1283,6 +1292,16 @@ tr.bottom-border{
   font-size: 35px;
 }
 
+.main-page-title-white{
+  text-transform: uppercase;
+  text-align: center;
+  margin: auto;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: white;
+  font-size: 35px;
+}
+
 .sub-title-main{
   margin: 0;
   font-weight: 500;
@@ -1339,6 +1358,31 @@ tr.bottom-border{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.overview-detail{
+  width: 30%;
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.overview-detail-label{
+  width: 30%;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: var(--dark-red);
+  border: none;
+  padding: 10px 20px;
+  font-family: 'roboto', sans-serif;
+  color: white;
+}
+
+.addicon-1{
+  border: var(--dark-red) solid 1px;
+  background-color: lightcoral;
+  padding: 10px;
 }
 
 .addicon{
@@ -1580,6 +1624,32 @@ input:focus + label {
 .edit-series-btn:hover{
   color: black;
   background-color: white;
+}
+
+/* download button */
+.download-btn a{
+  font-size: 20px;
+  color: white;
+}
+
+.download-btn a:hover{
+  color: black;
+}
+
+.download-btn{
+  color: black;
+  background-color: white;
+  font-weight: 50;
+  font-size: 20px;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-family: 'roboto', sans-serif;
+}
+
+.download-btn:hover{
+  color: white;
+  background-color: var(--dark-red);
 }
 
 /* hidden div form */
@@ -1843,6 +1913,10 @@ input:focus + label {
   background-color: black;
 }
 
+.bg-black-1{
+  background-color: #2E2E2E;
+}
+
 .new-series{
   margin: 2% 0;
   padding: 1% 0;
@@ -1909,6 +1983,10 @@ input:focus + label {
 
 .white-font{
   color: white;
+}
+
+.black-font{
+  color: black;
 }
 
 .series-description form {

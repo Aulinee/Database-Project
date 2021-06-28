@@ -1,6 +1,4 @@
 <?php
-include '../database/dbConnection.php'; 
-include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 ?>
 <!DOCTYPE html>
@@ -47,6 +45,7 @@ include 'sessionUser.php';
                         <th>Subscription Plan</th>
                         <th>Payment method</th>
                         <th>Total</th>
+                        <th>Receipt</th>
                     </tr>
                 </thead>
                 <tbody>

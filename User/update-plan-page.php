@@ -1,6 +1,4 @@
 <?php
-include '../database/dbConnection.php'; 
-include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 
 $error ="";

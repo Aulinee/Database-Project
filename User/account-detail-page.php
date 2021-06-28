@@ -1,6 +1,4 @@
 <?php
-include '../database/dbConnection.php'; 
-include '../class/TVSeriesClass.php';
 include 'sessionUser.php';
 ?>
 <!DOCTYPE html>
@@ -37,6 +35,11 @@ include 'sessionUser.php';
             </nav>
         </div>
     </header>
+    <div class="main-flex">
+        <div class="flex align-left" id="flexbox">
+            <button class="nav-btn inline"><a href= "main-page.php"><i class="fa fa-arrow-left"></i> Back To Main Page</a></button>
+        </div>
+    </div>
     <div class="content container-95">
         <div class="account-detail-title">
             <h1>Account</h1>
@@ -100,8 +103,5 @@ include 'sessionUser.php';
             </div>
         </div>
     </div>
-    <footer>
-        <h5>&copy; Copyright 2021 MeowCat Team</h5>
-    </footer>
 </body>
 </html>

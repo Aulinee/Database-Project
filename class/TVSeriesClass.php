@@ -40,6 +40,36 @@ class Series{
         }
     }
 
+    public function displayTopSeriesByMonth(){
+        $seriesid = 0;
+        $current_date = date('m', time());
+        $topSeriesQuery = "SELECT SeriesID, count(*) FROM tvserieslog WHERE MONTH(AccessTime) = $current_date GROUP BY SeriesID ORDER BY count(*) DESC LIMIT 5";
+        $result = $this->conn->query($topSeriesQuery);
+
+		if($result){
+            if ($result->num_rows > 0) {
+                while($row = mysqli_fetch_array($result)){
+                    $seriesid = $row["SeriesID"];
+                    $seriesQuery = "SELECT * FROM tvseries WHERE SeriesID = $seriesid";
+                    $sqlQuery = $this->conn->query($seriesQuery);
+                    if($sqlQuery){
+                        if ($sqlQuery->num_rows > 0){
+                            $seriesRow = mysqli_fetch_array($sqlQuery);
+                            echo '<div>
+                                    <img style="width: 200px; height: 270px;"src="data:image/jpeg;base64,'.base64_encode( $seriesRow['seriesImg'] ).'"/> alt="tv-series">
+                                     <p style="text-align: center; color: white; font-size: 20px; margin-left: -30%;"><a style="color:#dbdbdb" href="series-detail-page.php?id='.$seriesRow['SeriesID'].'">'.$seriesRow['SeriesTitle'].'</a></p>
+                                 </div>';
+                        }
+                    }
+                }
+            }else{
+                echo "Record not found";
+            }
+        }else{
+            echo "Error in ".$topSeriesQuery." ".$this->conn->error;
+        }
+    }
+
     public function displayFilterOptions(){
         $genreOptionQuery = "SELECT DISTINCT GenreID FROM seriesgenre";
         $result = $this->conn->query($genreOptionQuery);
@@ -336,6 +366,145 @@ class Series{
                 echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">
                 <p class="delete-btn inline" style="padding: 0 10px"><a style="color:black;" href="edit-episode-page.php?episodeid='.$ep_id.'"><i class="fa fa-edit"></i></a></p>
                 <p class="delete-btn inline" style="padding: 0 10px"><a style="color:black;" href="deleteEpisode.php?episodeid='.$ep_id.'"><i class="fa fa-trash-o"></i></a></p></td>';
+            echo '</tr>';
+        }
+    }
+
+    /*====================Display TV Series main admin page (call function only)======================= */
+    public function displaySeriesByCast(){
+        $seriesQuery = mysqli_query($this->conn, "SELECT * FROM tvseries");
+        $arrayData = array();
+
+        while($rowdesc = mysqli_fetch_array($seriesQuery)){
+            //Change date format
+            $date = $rowdesc['ReleaseDate'];
+            $tempDate = date_create($date);
+            
+            $seriesid = $rowdesc['SeriesID'];
+            $title = $rowdesc['SeriesTitle'];
+            $release_date = date_format($tempDate,"M d, Y");
+            $img = "data:image/jpeg;base64,".base64_encode( $rowdesc['seriesImg'] );
+            $description = $rowdesc['Description'];
+            $allCastArray = array();
+            $allGenreArray = array();
+            $allDirectorArray = array();
+            $allAwardArray = array();
+            $totalSeason = 0;
+            $totalEpisode = 0;
+            $totalView = 0;
+
+            //Find cast list
+            $castQuery = mysqli_query($this->conn, "SELECT DISTINCT CastID FROM seriescast WHERE SeriesID = $seriesid");
+            while($rowcast = mysqli_fetch_array($castQuery)){
+                $castid = $rowcast['CastID'];
+                $castNameQuery = mysqli_query($this->conn, "SELECT * FROM cast WHERE CastID = $castid");
+                while($rowcastname = mysqli_fetch_array($castNameQuery)){
+                    $castName = $rowcastname['CastFirstName']." ".$rowcastname['CastLastName'];
+                    array_push($allCastArray, $castName);
+                }
+            }
+
+            //Find genre list
+            $genreQuery = mysqli_query($this->conn, "SELECT DISTINCT GenreID FROM seriesgenre WHERE SeriesID = $seriesid");
+            while($rowgenre = mysqli_fetch_array($genreQuery)){
+                $genreid = $rowgenre['GenreID'];
+                $genreNameQuery = mysqli_query($this->conn, "SELECT * FROM genre WHERE GenreID = $genreid");
+                while($rowgenrename = mysqli_fetch_array($genreNameQuery)){
+                    $genresName = $rowgenrename['GenreName'];
+                    array_push($allGenreArray, $genresName);
+                }
+
+            }
+        
+
+            //Find director list
+            $directorQuery = mysqli_query($this->conn, "SELECT DISTINCT DirectorID FROM seriesdirector WHERE SeriesID = $seriesid");
+            while($rowdirector = mysqli_fetch_array($directorQuery)){
+                $directorid = $rowdirector['DirectorID'];
+                $directorNameQuery = mysqli_query($this->conn, "SELECT * FROM director WHERE DirectorID = $directorid");
+                while($rowdirectorname = mysqli_fetch_array($directorNameQuery)){
+                    $directorName = $rowdirectorname['DirectorFirstName']." ".$rowdirectorname['DirectorLastName'];
+                    array_push($allDirectorArray,  $directorName);
+                }
+            }
+            
+            //Find Award List
+            $awardQuery = mysqli_query($this->conn, "SELECT DISTINCT AwardID FROM seriesaward WHERE SeriesID = $seriesid");
+            while($rowaward= mysqli_fetch_array($awardQuery)){
+                $awardid = $rowaward['AwardID'];
+                $awardNameQuery = mysqli_query($this->conn, "SELECT * FROM award WHERE AwardID =  $awardid");
+                while($rowawardname = mysqli_fetch_array($awardNameQuery)){
+                    $awardName = $rowawardname['AwardTitle'];
+                    array_push($allAwardArray,  $awardName);
+                }
+            }
+
+            //Find total season
+            $seasonCountQuery = mysqli_query($this->conn, "SELECT COUNT(*) AS totalseason FROM season WHERE SeriesID = $seriesid");
+            while($rowseason= mysqli_fetch_array($seasonCountQuery)){
+                $totalSeason = $rowseason['totalseason'];
+            }
+
+            //Find total episode
+            $episodeCountQuery = mysqli_query($this->conn, "SELECT COUNT(e.EpisodeTitle) AS totalep FROM episode e, season s WHERE s.SeriesID = $seriesid  AND s.SeasonID = e.SeasonID");
+            while($rowepisode= mysqli_fetch_array($episodeCountQuery)){
+                $totalEpisode = $rowepisode['totalep'];
+            }
+
+            //Find total series viewed by user
+            $viewCountQuery = mysqli_query($this->conn, "SELECT COUNT(*) AS totalview FROM tvserieslog WHERE SeriesID = $seriesid");
+            while($rowview= mysqli_fetch_array($viewCountQuery)){
+                $totalView = $rowview['totalview'];
+            }
+
+            //check for empty array 
+            if(empty($allCastArray)){
+                $castName = "No cast";
+                array_push($allCastArray, $castName);
+            }
+            
+            if (empty($allGenreArray)){
+                $genreName = "No genre";
+                array_push($allGenreArray, $genreName);
+            }
+            
+            if(empty($allDirectorArray)){
+                $directorName = "No director";
+                array_push($allDirectorArray, $directorName);
+            }
+            
+            if(empty($allAwardArray)){
+                $awardName = "No award";
+                array_push($allAwardArray, $awardName);
+            }
+
+            //echo all series result
+            echo '<tr>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;"> <img style="width: 120px;height: 150px;margin: auto;" src="'.$img.'"></td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$title.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$totalSeason.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$totalEpisode.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">';
+                foreach($allGenreArray as $genre){
+                    echo $genre.'<br>';
+                } 
+                echo '</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">';
+                foreach($allCastArray as $cast){
+                    echo $cast.'<br>';
+                } 
+                echo '</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">';
+                foreach($allDirectorArray as $director){
+                    echo $director.'<br>';
+                } 
+                echo '</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">';
+                foreach($allAwardArray as $award){
+                    echo $award.'<br>';
+                } 
+                echo '</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$release_date.'</td>';
             echo '</tr>';
         }
     }

@@ -8,6 +8,21 @@ class User{
         $this->conn = $DB_con;
 	}
 
+    public function checkExistUsername($username){
+        //Create query string
+        $checkUsernameQuery = "SELECT * FROM `user` WHERE Username = '$username'";
+        $result = mysqli_query($this->conn, $checkUsernameQuery) or die("Error: ".mysqli_error($this->conn));
+        $count = mysqli_num_rows($result);
+    
+        // If result matched $username, table row must be 1 row
+        if($count == 1){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     public function signUp($username, $firstname, $lastname, $email, $password, $mobileNum, $gender, $addressline, $postcode, $city, $state){
         $checkPostalQuery = "SELECT * FROM address WHERE PostalCode = $postcode";
         $resultPostal = mysqli_query($this->conn,  $checkPostalQuery) or die("Error: ".mysqli_error($this->conn));
@@ -27,14 +42,12 @@ class User{
         $resultUser = mysqli_query($this->conn,  $insertUserQuery) or die("Error: ".mysqli_error($this->conn));
        
         if ($resultUser == true) {
-            //echo "Successful add query";
             return true;
         }else{
             echo "Error in ".$resultUser." ".$this->conn->error;
-            //echo "Unsuccessful add query. try again!";
+            return false;
         }
         
-        return false;
     }
 
     public function loginAuthentication(string $username, string $password){
@@ -49,6 +62,27 @@ class User{
             echo "Record not found";
         }
         
+        return false;
+    }
+
+    public function addNewAddress($postalcode, $city, $state, $country){
+        $postalcode = $this->conn->real_escape_string($postalcode);
+        $city = $this->conn->real_escape_string($city);
+        $state = $this->conn->real_escape_string($state);
+        $country = $this->conn->real_escape_string($country);
+
+        /* Insert query template */
+        $stringQuery = "INSERT INTO address(PostalCode, State, Area, Country) VALUES ('$postalcode', '$state', '$city', '$country')";
+        
+        $sqlQuery = $this->conn->query($stringQuery);
+        if ($sqlQuery == true) {
+            //echo "Successful update query";
+            return true;
+        }else{
+            echo "Error in ". $sqlQuery." ".$this->conn->error;
+            //echo "Unsuccessful update query. try again!";
+        }
+
         return false;
     }
 
@@ -87,6 +121,74 @@ class User{
         }else{
             echo "Error in ".$query." ".$this->conn->error;
         } 
+    }
+
+    public function displayOverviewSubscription(){
+        $totalUserQuery = mysqli_query($this->conn,"SELECT COUNT(*) AS user FROM user");
+        $totalTrialQuery = mysqli_query($this->conn,"SELECT COUNT(*) AS trial FROM `usersubscription` WHERE PlanID = 3");
+        $totalBasicQuery = mysqli_query($this->conn,"SELECT COUNT(*) AS basic FROM `usersubscription` WHERE PlanID = 1");
+        $totalPremiumQuery = mysqli_query($this->conn,"SELECT COUNT(*) AS premium FROM `usersubscription` WHERE PlanID = 2");
+
+        //Declare variable
+        $total_user = 0;
+        $total_trial = 0;
+        $total_basic = 0;
+        $total_premium = 0;
+
+        while($rowuser = mysqli_fetch_array($totalUserQuery)){
+            $total_user = $rowuser['user'];
+        }
+
+        while($rowtrial = mysqli_fetch_array($totalTrialQuery)){
+            $total_trial = $rowtrial['trial'];
+        }
+
+        while($rowbasic = mysqli_fetch_array($totalBasicQuery)){
+            $total_basic = $rowbasic['basic'];
+        }
+
+        while($rowpremium = mysqli_fetch_array($totalPremiumQuery)){
+            $total_premium = $rowpremium['premium'];
+        }
+
+        $overview_data = array($total_user, $total_trial, $total_basic, $total_premium); //to store all result data
+
+        return $overview_data;
+
+    }
+
+    public function displayAllSubscription(){
+        $subQuery = mysqli_query($this->conn, "SELECT u.Username, u.UserFirstName, u.UserLastName, u.Email, u.Gender, u.PhoneNumber, u.AddressLine, u.PostalCode, a.State, a.Area, a.Country, s.StartAccess, s.EndAccess, p.Type FROM user u, address a, usersubscription s, subscriptionplan p WHERE 
+                u.PostalCode = a.PostalCode AND u.SubscriptionID = s.SubscriptionID AND s.PlanID = p.PlanID ORDER BY s.StartAccess DESC");
+        while($rowsub = mysqli_fetch_array($subQuery)){
+            $plan_type = $rowsub['Type'];
+            $start_access = $rowsub['StartAccess'];
+            $end_access = $rowsub['EndAccess'];
+            $username = $rowsub['Username'];
+            $fullname = $rowsub['UserFirstName']." ".$rowsub['UserLastName'];
+            $email = $rowsub['Email'];
+            $gender = $rowsub['Gender'];
+            $address = $rowsub['AddressLine'].", ".$rowsub['PostalCode']." ".$rowsub['Area'].", ".$rowsub['State'].", ".$rowsub['Country'];
+            $phone = $rowsub['PhoneNumber'];
+            
+            //Change date format
+            $tempDate1 = date_create($start_access);
+            $start_access = date_format($tempDate1,"M d, Y");
+            $tempDate2 = date_create($end_access);
+            $end_access = date_format($tempDate2,"M d, Y");
+
+            echo '<tr>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$plan_type.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$start_access.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$end_access.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$username.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$fullname.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$email.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$gender.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$address.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">0'.$phone.'</td>';
+            echo '</tr>';
+        }
     }
 
     public function readSubscription(int $subid){
@@ -173,6 +275,73 @@ class User{
         }
     }
 
+    public function displayOverviewPayment(){
+        $totalReceiptQuery = mysqli_query($this->conn,"SELECT COUNT(*) AS sum FROM payment");
+        $sumPaymentQuery = mysqli_query($this->conn,"SELECT SUM(s.Price) AS sum FROM payment p, subscriptionplan s WHERE p.PlanID = s.PlanID");
+        $averagePaymentQuery = mysqli_query($this->conn,"SELECT SUM(s.Price) AS sum FROM payment p, subscriptionplan s WHERE p.PlanID = s.PlanID group by year(p.PaymentDate), month(p.PaymentDate)");
+
+        //Declare variable
+        $total_receipt = 0;
+        $sum_payment = 0;
+        $month_payment = 0.00;
+        $average_payment = 0.00;
+        $countMonth = 0;
+
+        while($rowreceipt = mysqli_fetch_array($totalReceiptQuery)){
+            $total_receipt = $rowreceipt['sum'];
+        }
+
+        while($rowsum = mysqli_fetch_array($sumPaymentQuery)){
+            $sum_payment = $rowsum['sum'];
+        }
+
+        while($rowavg = mysqli_fetch_array($averagePaymentQuery)){
+            $month_payment += $rowavg['sum'];
+            $countMonth++;
+        }
+        $average_payment = sprintf('%.2f', intdiv($month_payment, $countMonth));//return number in 2 decimal places
+
+
+        $overview_data = array($total_receipt, $sum_payment, $average_payment); //to store all result data
+
+        return $overview_data;
+
+    }
+
+    public function displayAllPayment(){
+        $subQuery = mysqli_query($this->conn, "SELECT p.PaymentDate, u.Username, u.UserFirstName, u.UserLastName, u.Email, u.Gender, 
+        u.PhoneNumber, u.AddressLine, u.PostalCode, a.State, a.Area, a.Country, s.Type, s.Price FROM user u, address a, subscriptionplan s,
+        payment p WHERE p.UserID = u.UserID AND u.PostalCode = a.PostalCode AND p.PlanID = s.PlanID ORDER BY p.PaymentDate DESC");
+
+        while($rowsub = mysqli_fetch_array($subQuery)){
+            $payment_date = $rowsub['PaymentDate'];
+            $plan_type = $rowsub['Type'];
+            $amount = $rowsub['Price'];
+            $username = $rowsub['Username'];
+            $fullname = $rowsub['UserFirstName']." ".$rowsub['UserLastName'];
+            $email = $rowsub['Email'];
+            $gender = $rowsub['Gender'];
+            $address = $rowsub['AddressLine'].", ".$rowsub['PostalCode']." ".$rowsub['Area'].", ".$rowsub['State'].", ".$rowsub['Country'];
+            $phone = $rowsub['PhoneNumber'];
+            
+            //Change date format
+            $tempDate = date_create($payment_date);
+            $payment_date = date_format($tempDate,"M d, Y");
+
+            echo '<tr>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$payment_date.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$plan_type.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$username.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$fullname.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$email.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$gender.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$address.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">0'.$phone.'</td>';
+                echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$amount.'</td>';
+            echo '</tr>';
+        }
+    }
+
     public function makePayment(int $userid, int $planid, string $payment_method){
         $userid = $this->conn->real_escape_string($userid);
         $planid = $this->conn->real_escape_string($planid);
@@ -198,6 +367,7 @@ class User{
         $paymentQuery = mysqli_query($this->conn, "SELECT * FROM payment WHERE UserID = $userid ORDER BY PaymentDate DESC");
 
         while($rowpayment = mysqli_fetch_array($paymentQuery)){
+            $paymentid = $rowpayment['PaymentID'];
             $planid = $rowpayment['PlanID'];
 
             //Change $paymentdate format
@@ -212,11 +382,14 @@ class User{
                 $plan_type = $rowplan['Type']." - ". $rowplan['Description'];
                 $amount = $rowplan['Price'];
 
-                echo'<tr style="border-bottom: var(--blur-white) 1px solid;text-align: center;margin: auto;pointer-events: none;">';
+                echo'<tr style="border-bottom: var(--blur-white) 1px solid;text-align: center;margin: auto;">';
                     echo'<td style="font-size: 15px;font-weight: 500;letter-spacing: 2px;color: var(--blur-white);text-align: center;padding: 2% 0;margin: auto;">'.$paymentdate.'</td>';
                     echo'<td style="font-size: 15px;font-weight: 500;letter-spacing: 2px;color: var(--blur-white);text-align: center;padding: 2% 0;margin: auto;">'.$plan_type.'</td>';
                     echo'<td style="font-size: 15px;font-weight: 500;letter-spacing: 2px;color: var(--blur-white);text-align: center;padding: 2% 0;margin: auto;">'.$paymentMethod.'</td>';
                     echo'<td style="font-size: 15px;font-weight: 500;letter-spacing: 2px;color: var(--blur-white);text-align: center;padding: 2% 0;margin: auto;">RM '.$amount.'</td>';
+                    echo'<td style="font-size: 15px;font-weight: 500;letter-spacing: 2px;color: var(--blur-white);text-align: center;padding: 2% 0;margin: auto;">';
+                    echo '<p class="delete-btn inline" style="padding: 0 10px"><a style="color:black;" href="printPaymentReceiptMonth.php?paymentid='.$paymentid.'"><i class="fa fa-download"></i></a></p>';
+                    echo'</td>';
                 echo'</tr>';
             }
         }
@@ -250,25 +423,32 @@ class User{
         return $paymentDetailArray;
     }
 
-    public function addNewAddress($postalcode, $city, $state, $country){
-        $postalcode = $this->conn->real_escape_string($postalcode);
-        $city = $this->conn->real_escape_string($city);
-        $state = $this->conn->real_escape_string($state);
-        $country = $this->conn->real_escape_string($country);
+    public function readPaymentDetailByMonth($userid, $paymentid){
+        $paymentQuery = mysqli_query($this->conn, "SELECT * FROM payment WHERE UserID = $userid AND PaymentID = $paymentid");
+        $paymentDetailArray = array();
 
-        /* Insert query template */
-        $stringQuery = "INSERT INTO address(PostalCode, State, Area, Country) VALUES ('$postalcode', '$state', '$city', '$country')";
-        
-        $sqlQuery = $this->conn->query($stringQuery);
-        if ($sqlQuery == true) {
-            //echo "Successful update query";
-            return true;
-        }else{
-            echo "Error in ". $sqlQuery." ".$this->conn->error;
-            //echo "Unsuccessful update query. try again!";
+        while($rowpayment = mysqli_fetch_array($paymentQuery)){
+            $paymentid = $rowpayment['PaymentID'];
+            $planid = $rowpayment['PlanID'];
+
+            //Change $paymentdate format
+            $paymentdate = $rowpayment['PaymentDate'];
+            $tempDate = date_create($paymentdate);
+            $paymentdate = date_format($tempDate,"d M Y"); //Latest formatted payment date
+
+            $paymentMethod = $rowpayment['PaymentMethod']; //Payment Method data
+
+            $planQuery = mysqli_query($this->conn, "SELECT * FROM subscriptionplan WHERE PlanID = $planid");
+            while($rowplan = mysqli_fetch_array($planQuery)){
+                $plan_type = $rowplan['Type']." - ". $rowplan['Description'];
+                $amount = $rowplan['Price'];
+
+                $paymentDetailArray = array($paymentid, $plan_type, $paymentdate, $paymentMethod, $amount);
+
+            }
         }
 
-        return false;
+        return $paymentDetailArray;
     }
 	
 }

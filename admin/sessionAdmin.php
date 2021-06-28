@@ -1,8 +1,10 @@
 <?php 
 include '../database/dbConnection.php'; 
 include '../class/TVSeriesClass.php';
+include '../class/UserClass.php';
 
 $seriesObj = new Series($conn);
+$userObj = new User($conn);
 $genreObj = new Genre($conn);
 $castObj = new Cast($conn);
 $directorObj = new Director($conn);

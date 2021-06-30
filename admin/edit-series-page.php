@@ -516,7 +516,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                 <form class="file-input" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                     <input class="new-img-input inline red" type="file" id="file" name="new-series-poster">
                     <label for="file">
-                        Select file
+                        Update image
                         <p class="file-name"></p>
                     </label>
                     <div class="tooltip">

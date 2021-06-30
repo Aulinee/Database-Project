@@ -69,7 +69,7 @@ include 'sessionUser.php';
                                 $seriesObj->displayFilterSeries($genreValue);
 
                                 echo "<script>
-                                window.location.href='main-page.php#series-genre';
+                                window.location.href='search-series-page.php#series-genre';
                                 </script>";
                             }
                         }else{

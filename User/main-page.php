@@ -41,7 +41,7 @@ $current_date = date('M, Y', time());
     </header>
     <div class="content container-95" id="top-pick">
         <div class="top-pick " id="top-5-by-user">
-            <h1 class="top-pick-title ">Top 5 Most Watch By You</h1>
+            <h1 class="top-pick-title ">Top 5 Most Watched TV Series</h1>
             <div class="top-pick-display ">
                 <?php 
                 $seriesObj = new Series($conn);

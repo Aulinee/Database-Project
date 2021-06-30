@@ -191,8 +191,43 @@ class User{
         }
     }
 
-    public function readSubscription(int $subid){
+    public function displayAllSubscriptionReport(){
+        $subQuery = mysqli_query($this->conn, "SELECT u.Username, u.UserFirstName, u.UserLastName, u.Email, u.Gender, u.PhoneNumber, u.AddressLine, u.PostalCode, a.State, a.Area, a.Country, s.StartAccess, s.EndAccess, p.Type FROM user u, address a, usersubscription s, subscriptionplan p WHERE 
+                u.PostalCode = a.PostalCode AND u.SubscriptionID = s.SubscriptionID AND s.PlanID = p.PlanID ORDER BY s.StartAccess DESC");
+        while($rowsub = mysqli_fetch_array($subQuery)){
+            $plan_type = $rowsub['Type'];
+            $start_access = $rowsub['StartAccess'];
+            $end_access = $rowsub['EndAccess'];
+            $username = $rowsub['Username'];
+            $fullname = $rowsub['UserFirstName']." ".$rowsub['UserLastName'];
+            $email = $rowsub['Email'];
+            $gender = $rowsub['Gender'];
+            $address = $rowsub['AddressLine'].", ".$rowsub['PostalCode']." ".$rowsub['Area'].", ".$rowsub['State'].", ".$rowsub['Country'];
+            $phone = $rowsub['PhoneNumber'];
+            
+            //Change date format
+            $tempDate1 = date_create($start_access);
+            $start_access = date_format($tempDate1,"M d, Y");
+            $tempDate2 = date_create($end_access);
+            $end_access = date_format($tempDate2,"M d, Y");
+
+            echo '<tr>';
+                echo '<td>'.$plan_type.'</td>';
+                echo '<td>'.$start_access.'</td>';
+                echo '<td>'.$end_access.'</td>';
+                echo '<td>'.$username.'</td>';
+                echo '<td>'.$fullname.'</td>';
+                echo '<td>'.$email.'</td>';
+                echo '<td>'.$gender.'</td>';
+                echo '<td>'.$address.'</td>';
+                echo '<td>0'.$phone.'</td>';
+            echo '</tr>';
+        }
+    }
+
+    public function readSubscription(int $subid, $userid){
         $subQuery = mysqli_query($this->conn, "SELECT * FROM usersubscription WHERE SubscriptionID = $subid");
+        $member_date = mysqli_query($this->conn, "SELECT PaymentDate FROM `payment` WHERE UserID = $userid ORDER BY PaymentDate ASC LIMIT 1");
         $subscriptionArray = array();
         
         while($rowsub = mysqli_fetch_array($subQuery)){
@@ -210,6 +245,7 @@ class User{
             //Using date_diff to calculate subscription duration left
             $day_left = date_diff($dateCurrent, $dateEnd);
             $day_left_formatted = $day_left->format("%a"); //convert duration lefts into day left
+            $day_left_status = $day_left->format("%r"); //check positive or negative value
 
             $planQuery = mysqli_query($this->conn, "SELECT * FROM subscriptionplan WHERE PlanID = $planid");
 
@@ -219,7 +255,15 @@ class User{
                 $price = $rowplan['Price'];
             }
 
-            $subscriptionArray = array($start_access, $end_access, $plan_type, $description, $price, $day_left_formatted);
+            $membership_date = NULL;
+
+            while($rowmember = mysqli_fetch_array($member_date)){
+                $memberDate = $rowmember['PaymentDate'];
+                $temp_date = date_create($memberDate);
+                $membership_date = date_format($temp_date,"M Y");
+            }
+
+            $subscriptionArray = array($start_access, $end_access, $plan_type, $description, $price, $day_left_formatted, $membership_date, $day_left_status);
         }
 
         return $subscriptionArray;
@@ -251,27 +295,37 @@ class User{
 
     }
 
-    public function updateSubscription(int $subid, int $planid){
+    public function updateSubscription(int $subid, int $planid, int $userid){
         $subid = $this->conn->real_escape_string($subid);
         $planid = $this->conn->real_escape_string($planid);
 
-        //Insert start date and end subscription with one month duration
-        date_default_timezone_set("Asia/Kuala_Lumpur"); //set time region
-        $current_time = date('Y-m-d H:i:s', time()); //Get current time and as start access value
+        //check day left 
+        $day_left = $this->readSubscription($subid, $userid);
 
-        $start_date = date_create($current_time); //convert it to object time
-        $date = date_add($start_date,date_interval_create_from_date_string("30 days")); //Add 30 days after start_date
-        $end_date = date_format($date,"Y-m-d H:i:s"); //declare it as end date and pass as a string using date_format
+        //check day_left status (empty string means positive)
+        if($day_left[7] > ""){
+            //Insert start date and end subscription with one month duration
+            date_default_timezone_set("Asia/Kuala_Lumpur"); //set time region
+            $current_time = date('Y-m-d H:i:s', time()); //Get current time and as start access value
 
-        /* Insert query template */
-        $stringQuery = "UPDATE usersubscription SET PlanID = '$planid', StartAccess = '$current_time', EndAccess = '$end_date' WHERE SubscriptionID = '$subid'";
-        
-        $sqlQuery = $this->conn->query($stringQuery);
-        if ($sqlQuery == true) {
-            //echo "Successful update query";
+            $start_date = date_create($current_time); //convert it to object time
+            $date = date_add($start_date,date_interval_create_from_date_string("30 days")); //Add 30 days after start_date
+            $end_date = date_format($date,"Y-m-d H:i:s"); //declare it as end date and pass as a string using date_format
+
+            /* Insert query template */
+            $stringQuery = "UPDATE usersubscription SET PlanID = '$planid', StartAccess = '$current_time', EndAccess = '$end_date' WHERE SubscriptionID = '$subid'";
+            
+            $sqlQuery = $this->conn->query($stringQuery);
+            if ($sqlQuery == true) {
+                return true;
+                //echo "Successful update query";
+            }else{
+                return false;
+                echo "Error in ". $sqlQuery." ".$this->conn->error;
+                //echo "Unsuccessful update query. try again!";
+            }
         }else{
-            echo "Error in ". $sqlQuery." ".$this->conn->error;
-            //echo "Unsuccessful update query. try again!";
+            return false;
         }
     }
 
@@ -338,6 +392,40 @@ class User{
                 echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$address.'</td>';
                 echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">0'.$phone.'</td>';
                 echo '<td style="padding: 10px;background-color: rgb(75, 70, 70);text-align: center;">'.$amount.'</td>';
+            echo '</tr>';
+        }
+    }
+
+    public function displayAllPaymentReport(){
+        $subQuery = mysqli_query($this->conn, "SELECT p.PaymentDate, u.Username, u.UserFirstName, u.UserLastName, u.Email, u.Gender, 
+        u.PhoneNumber, u.AddressLine, u.PostalCode, a.State, a.Area, a.Country, s.Type, s.Price FROM user u, address a, subscriptionplan s,
+        payment p WHERE p.UserID = u.UserID AND u.PostalCode = a.PostalCode AND p.PlanID = s.PlanID ORDER BY p.PaymentDate DESC");
+
+        while($rowsub = mysqli_fetch_array($subQuery)){
+            $payment_date = $rowsub['PaymentDate'];
+            $plan_type = $rowsub['Type'];
+            $amount = $rowsub['Price'];
+            $username = $rowsub['Username'];
+            $fullname = $rowsub['UserFirstName']." ".$rowsub['UserLastName'];
+            $email = $rowsub['Email'];
+            $gender = $rowsub['Gender'];
+            $address = $rowsub['AddressLine'].", ".$rowsub['PostalCode']." ".$rowsub['Area'].", ".$rowsub['State'].", ".$rowsub['Country'];
+            $phone = $rowsub['PhoneNumber'];
+            
+            //Change date format
+            $tempDate = date_create($payment_date);
+            $payment_date = date_format($tempDate,"M d, Y");
+
+            echo '<tr>';
+                echo '<td>'.$payment_date.'</td>';
+                echo '<td>'.$plan_type.'</td>';
+                echo '<td>'.$username.'</td>';
+                echo '<td>'.$fullname.'</td>';
+                echo '<td>'.$email.'</td>';
+                echo '<td>'.$gender.'</td>';
+                echo '<td>'.$address.'</td>';
+                echo '<td>0'.$phone.'</td>';
+                echo '<td>'.$amount.'</td>';
             echo '</tr>';
         }
     }

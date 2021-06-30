@@ -7,6 +7,7 @@ if(isset($_SESSION['series_id'])){
 
 $subs_overview = $userObj->displayOverviewSubscription();
 $payment_overview = $userObj->displayOverviewPayment();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +66,7 @@ $payment_overview = $userObj->displayOverviewPayment();
             </div>
         </div>
         <h2 class="main-page-title font-white">LIST OF USER SUBSCRIPTION
-            <button class="edit-series-btn inline" name="edit-series-poster"><a href="#"><i class="fa fa-download"></i> Download Report</a></button>
+            <button class="edit-series-btn inline" name="edit-series-poster"><a href="userSubscriptionReport.php"><i class="fa fa-download"></i> Download Report</a></button>
         </h2>
         <br>
         <div class="tbl-scroll">
@@ -95,16 +96,16 @@ $payment_overview = $userObj->displayOverviewPayment();
                 <i class="addicon-1"><?php echo $payment_overview[0]; ?></i>
             </div>
             <div class="overview-detail">
-                <label class="overview-detail-label" for="">Total Payment (RM)</label>
+                <label class="overview-detail-label" for="">Total Sales (RM)</label>
                 <i class="addicon-1"><?php echo $payment_overview[1]; ?></i>
             </div>
             <div class="overview-detail">
-                <label class="overview-detail-label" for="">Average Payment Monthly (RM)</label>
+                <label class="overview-detail-label" for="">Average Sales Monthly (RM)</label>
                 <i class="addicon-1"><?php echo $payment_overview[2]; ?></i>
             </div>
         </div>
         <h2 class="main-page-title font-white">LIST OF PAYMENT TRANSACTION
-            <button class="edit-series-btn inline" name="edit-series-poster"><a href="#"><i class="fa fa-download"></i> Download Report</a></button>
+            <button class="edit-series-btn inline" name="edit-series-poster"><a href="salesReport.php"><i class="fa fa-download"></i> Download Report</a></button>
         </h2>
         <br>
         <div class="tbl-scroll">

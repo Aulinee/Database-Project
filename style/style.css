@@ -62,6 +62,19 @@ a{
   background-size: cover;
 }
 
+.parallax-1 {
+  /* The image used */
+  background-image: url("../img/TMFLIX\ Background-01.png");
+
+  min-width: 1000px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /*custom scrollbar*/
 ::-webkit-scrollbar{
   width: 12px;

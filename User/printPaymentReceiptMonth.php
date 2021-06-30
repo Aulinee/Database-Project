@@ -91,7 +91,7 @@
     $html = ob_get_clean();
     $dompdf->loadHtml($html); 
     
-    // (Optional) Setup the paper size and orientation 
+    // (Optional) Setup the paper size and orientation (landscape, potrait)
     $dompdf->setPaper('A4', 'landscape'); 
     
     // Render the HTML as PDF 

@@ -7,8 +7,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $plan_id = $_POST['subscription-plan'];
     $payment_method = $_POST['payment-method'];
 
-    $userObj->makePayment($userid, $plan_id, $payment_method);
-    $userObj->updateSubscription($subid, $plan_id);
+    $update_status = $userObj->updateSubscription($subid, $plan_id, $userid);
+
+    if($update_status){
+        $payment_status = $userObj->makePayment($userid, $plan_id, $payment_method);
+        echo "<script>
+        alert('Successfully update your subscription!');
+        window.location.href='account-detail-page.php';
+        </script>";
+    }else{
+        echo "<script>
+        alert('You still have ".$dayleft." days. Please wait until your membership end to update!');
+        window.location.href='account-detail-page.php';
+        </script>";
+    }
 }
 ?>
 <!DOCTYPE html>

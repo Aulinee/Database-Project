@@ -37,10 +37,10 @@
     $address= $session_data[7];
 
     //Set subscription data
-    $subscription_session_data = $userObj->readSubscription($subid);
+    $subscription_session_data = $userObj->readSubscription($subid, $userid);
 
     //Set Member date and Change $member_date format
-    $member_date = $subscription_session_data[0];
+    $member_date = $subscription_session_data[6];
     $tempDate = date_create($member_date);
     $memberdate = date_format($tempDate,"M Y");
 

@@ -19,8 +19,9 @@
     //Get payment detail in user class
     $paymentData = $userObj->readPaymentDetail($userid);
 
-    // Echo receipt layout
-    echo '<table border="0" cellpadding="0" cellspacing="20px" width="auto" align="center" style:"padding: 30px;">
+    if ($paymentData) {
+        // Echo receipt layout
+        echo '<table border="0" cellpadding="0" cellspacing="20px" width="auto" align="center" style:"padding: 30px;">
             <tr>
               <td align="center" >
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -84,16 +85,22 @@
           </table>
         ';
 
-   // Load content from html file 
-    $html = ob_get_clean();
-    $dompdf->loadHtml($html); 
+        // Load content from html file
+        $html = ob_get_clean();
+        $dompdf->loadHtml($html);
     
-    // (Optional) Setup the paper size and orientation 
-    $dompdf->setPaper('A4', 'landscape'); 
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
     
-    // Render the HTML as PDF 
-    $dompdf->render(); 
+        // Render the HTML as PDF
+        $dompdf->render();
     
-    // Output the generated PDF (1 = download and 0 = preview) 
-    $dompdf->stream("TMFlix Payment Receipt", array("Attachment" => 0));
+        // Output the generated PDF (1 = download and 0 = preview)
+        $dompdf->stream("TMFlix Payment Receipt", array("Attachment" => 0));
+    }else{
+      echo "<script>
+      alert('Your payment history is empty!');
+      window.location.href='payment-history-page.php';
+      </script>";
+    }
 ?>

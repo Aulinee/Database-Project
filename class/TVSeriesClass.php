@@ -25,9 +25,9 @@ class Series{
                     if($sqlQuery){
                         if ($sqlQuery->num_rows > 0){
                             $seriesRow = mysqli_fetch_array($sqlQuery);
-                            echo '<div>
+                            echo'<div>
                                     <img style="width: 200px; height: 270px;"src="data:image/jpeg;base64,'.base64_encode( $seriesRow['seriesImg'] ).'"/> alt="tv-series">
-                                     <p style="text-align: center; color: white; font-size: 20px; margin-left: -30%;"><a style="color:#dbdbdb" href="series-detail-page.php?id='.$seriesRow['SeriesID'].'">'.$seriesRow['SeriesTitle'].'</a></p>
+                                    <p style="text-align: center; color: white; font-size: 20px; margin-left: -30%;"><a style="color:#dbdbdb" href="series-detail-page.php?id='.$seriesRow['SeriesID'].'">'.$seriesRow['SeriesTitle'].'</a></p>
                                  </div>';
                         }
                     }

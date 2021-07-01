@@ -537,7 +537,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                         <div id="edit-title" class="sub-hidden-form">
                             <form class="hidden-form animate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <div class="titlecontainer">
-                                    <h2 class="main-page-title">EDIT SERIES TITLE</h2>
+                                    <h2 class="main-page-title white-font">EDIT SERIES TITLE</h2>
                                     <h5 class="sub-title-main">insert new series title</h5>
                                     <span class="close-btn" onclick="document.getElementById('edit-title').style.display='none'" title="Close Modal">&times;</span>
                                 </div>
@@ -566,7 +566,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                         <div id="edit-date" class="sub-hidden-form">
                             <form class="hidden-form animate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <div class="titlecontainer">
-                                    <h2 class="main-page-title">EDIT SERIES RELEASE DATE</h2>
+                                    <h2 class="main-page-title  white-font">EDIT SERIES RELEASE DATE</h2>
                                     <h5 class="sub-title-main">insert new series release date</h5>
                                     <span class="close-btn" onclick="document.getElementById('edit-date').style.display='none'" title="Close Modal">&times;</span>
                                 </div>
@@ -605,7 +605,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                         <div id="edit-desc" class="sub-hidden-form">
                             <form class="hidden-form animate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <div class="titlecontainer">
-                                    <h2 class="main-page-title">EDIT SERIES DESCRIPTION</h2>
+                                    <h2 class="main-page-title white-font">EDIT SERIES DESCRIPTION</h2>
                                     <h5 class="sub-title-main">insert new series description</h5>
                                     <span class="close-btn" onclick="document.getElementById('edit-desc').style.display='none'" title="Close Modal">&times;</span>
                                 </div>
@@ -1339,7 +1339,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                         <div id="edit-award" class="sub-hidden-form">
                             <form class="hidden-form animate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <div class="titlecontainer">
-                                    <h2 class="main-page-title">EDIT AWARD</h2>
+                                    <h2 class="main-page-title white-font">EDIT AWARD</h2>
                                     <h5 class="sub-title-main">edit your award here</h5>
                                     <span class="close-btn" onclick="document.getElementById('edit-award').style.display='none'" title="Close Modal">&times;</span>
                                 </div>

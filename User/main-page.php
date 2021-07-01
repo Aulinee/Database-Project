@@ -54,7 +54,7 @@ $current_date = date('M, Y', time());
             </div>
         </div>
         <div class="top-pick" id="top-5-by-month"> 
-            <h1 class="top-pick-title ">Top 5 In <?php echo $current_date;?></h1>
+            <h1 class="top-pick-title ">Top TV Series In <?php echo $current_date;?></h1>
             <div class="top-pick-display ">
                 <?php 
                 $seriesObj = new Series($conn);

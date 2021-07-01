@@ -487,28 +487,35 @@ class User{
         $paymentQuery = mysqli_query($this->conn, "SELECT * FROM payment WHERE UserID = $userid ORDER BY PaymentDate DESC LIMIT 1");
         $paymentDetailArray = array();
 
-        while($rowpayment = mysqli_fetch_array($paymentQuery)){
-            $paymentid = $rowpayment['PaymentID'];
-            $planid = $rowpayment['PlanID'];
+        if ($paymentQuery) {
+            if ($paymentQuery->num_rows > 0) {
+                while($rowpayment = mysqli_fetch_array($paymentQuery)){
+                    $paymentid = $rowpayment['PaymentID'];
+                    $planid = $rowpayment['PlanID'];
+        
+                    //Change $paymentdate format
+                    $paymentdate = $rowpayment['PaymentDate'];
+                    $tempDate = date_create($paymentdate);
+                    $paymentdate = date_format($tempDate,"d M Y"); //Latest formatted payment date
+        
+                    $paymentMethod = $rowpayment['PaymentMethod']; //Payment Method data
+        
+                    $planQuery = mysqli_query($this->conn, "SELECT * FROM subscriptionplan WHERE PlanID = $planid");
+                    while($rowplan = mysqli_fetch_array($planQuery)){
+                        $plan_type = $rowplan['Type']." - ". $rowplan['Description'];
+                        $amount = $rowplan['Price'];
+        
+                        $paymentDetailArray = array($paymentid, $plan_type, $paymentdate, $paymentMethod, $amount);
+        
+                    }
+                }
+        
+                return $paymentDetailArray;
 
-            //Change $paymentdate format
-            $paymentdate = $rowpayment['PaymentDate'];
-            $tempDate = date_create($paymentdate);
-            $paymentdate = date_format($tempDate,"d M Y"); //Latest formatted payment date
-
-            $paymentMethod = $rowpayment['PaymentMethod']; //Payment Method data
-
-            $planQuery = mysqli_query($this->conn, "SELECT * FROM subscriptionplan WHERE PlanID = $planid");
-            while($rowplan = mysqli_fetch_array($planQuery)){
-                $plan_type = $rowplan['Type']." - ". $rowplan['Description'];
-                $amount = $rowplan['Price'];
-
-                $paymentDetailArray = array($paymentid, $plan_type, $paymentdate, $paymentMethod, $amount);
-
+            }else{
+                return false;
             }
         }
-
-        return $paymentDetailArray;
     }
 
     public function readPaymentDetailByMonth($userid, $paymentid){
